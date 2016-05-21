@@ -1,9 +1,16 @@
+# encoding: utf-8
 """On this file you will implement you quality predictor function."""
 
 import numpy as np
 import os
 from tools import easy_import
-import config
+
+
+class Config:
+    """Configuration settings."""
+    def __init__(self):
+        self.data_root = None
+
 
 def predict_quality(record):
     """Predict the quality of the signal.
@@ -29,6 +36,7 @@ def predict_quality(record):
 if __name__ == "__main__":
 
     config = Config()
+    config.data_root = '../datasets'
 
-    record = os.path.join(datasets_root, "record1.h5")
+    record = os.path.join(config.data_root, "record1.h5")
     results = predict_quality(record)
