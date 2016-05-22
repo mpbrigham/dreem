@@ -3,8 +3,9 @@
 
 import numpy as np
 import os
-from utils import Config, easy_import
+from utils import easy_import
 from sklearn.ensemble import RandomForestClassifier
+
 
 def predict_quality(record):
     """Predict the quality of the signal.

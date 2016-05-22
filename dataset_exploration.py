@@ -3,17 +3,15 @@
 
 import h5py
 import os
-from utils import Config
+
+# root path for datasets
+data_root = '../datasets'
 
 # list of datasets
 records = ["quality_dataset.h5", "record1.h5", "record2.h5"]
 
-# dataset root path
-config = Config()
-config.data_root = '../datasets'
-
 for record in records:
-    path = os.path.join(config.data_root, record)
+    path = os.path.join(data_root, record)
 
     # retrieve dataset
     f = h5py.File(path, 'r')

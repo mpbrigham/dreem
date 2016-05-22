@@ -2,7 +2,7 @@
 """Fit Random Forest model and tune its hyper-parameters."""
 
 import os
-from utils import Config, easy_import, stats
+from utils import easy_import, stats
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.preprocessing import normalize
 from itertools import product
@@ -10,11 +10,10 @@ from itertools import product
 
 if __name__ == "__main__":
 
-    # declare root path for datasets
-    config = Config()
-    config.data_root = "../datasets"
+    # root path for datasets
+    data_root = "../datasets"
 
-    # number of folds for modelcross-validation
+    # number of folds for cross-validation
     n_fold = 20
 
     # number of samples used in train or None to use all samples
@@ -24,7 +23,7 @@ if __name__ == "__main__":
     dataset = "quality_dataset.h5"
 
     print "Fit Random forest to", dataset
-    path = os.path.join(config.data_root, dataset)
+    path = os.path.join(data_root, dataset)
 
     # retrieve train dataset
     raw, filtered, labels = easy_import.extract_signals_train(path)
@@ -42,9 +41,9 @@ if __name__ == "__main__":
     # random forest model with default parameters
     rf = RandomForestClassifier(n_jobs=-1)
 
-    print "\n", "Default model accuracy:"
-    stats.report_cv_stats(n_fold, rf, raw, labels, "raw")
-    stats.report_cv_stats(n_fold, rf, filtered, labels, "filtered")
+    # print "\n", "Default model accuracy:"
+    # stats.report_cv_stats(n_fold, rf, raw, labels, "raw")
+    # stats.report_cv_stats(n_fold, rf, filtered, labels, "filtered")
 
     print "\n", "Default model accuracy with normalized data:"
     stats.report_cv_stats(n_fold, rf, raw_n, labels, "raw norm")

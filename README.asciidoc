@@ -16,7 +16,7 @@ The following steps will be performed:
 ****
 . Dataset exploration: analysing the structure and properties of train and test datasets.
 
-. Random Forest model fit: training a plain random forest model with the train dataset and evaluating its performance.
+. Fitting a Random Forest model: training a plain random forest model with the train dataset and evaluating its performance.
 
 . Hyper-parameter tuning: selecting random forest parameters in order to improve accuracy on the train set.
 
@@ -72,13 +72,13 @@ etc...
 ----
 
 
-== 'Random Forest' model fit
+== Fitting a Random Forest model
 Fitting a 'Random Forest' model with default parameters yields 94.75 (+/- 3.74) when training with raw signals,
 and 88.71 (+/- 3.53) with filtered signals. The mean accuracy and 95% confidence interval are estimated with 20-fold cross-validation on the train dataset,
 where 19/20 of the samples are used to fit the model and 1/20 to estimate the accuracy.
 
 The performance of the model on the raw signals is further improved by scaling individual samples to have unit norm,
- which is a pre-processing step called 'normalization'.
+ which is a data pre-processing step called 'normalization'.
 
 Although the filtered versions are visually appealing, the filtering process seems to discard information that is useful for the accuracy of the model.
 
