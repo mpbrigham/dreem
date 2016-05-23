@@ -25,7 +25,7 @@ Three datasets are provided in [HDF5](https://en.wikipedia.org/wiki/Hierarchical
 * `record1.h5` is a test dataset containing a single sample with 4 EEG channels and is partially labelled.
 * `record2.h5` is a test dataset also containing a single sample with 4 EEG channels.
 
-All datasets contain both *raw* and *filtered* version of EEG samples.
+All datasets contain both *raw* samples and their *filtered* versions.
 
 The structure and properties of the train and test datasets are analysed in greater detail in [Dataset exploration notebook](notebooks/dataset_exploration.ipynb).
 The structure of the datasets (up to 2nd level) can be analysed with the script `python/dataset_exploration.py`.
