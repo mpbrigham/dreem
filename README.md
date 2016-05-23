@@ -19,53 +19,22 @@ The following steps will be performed:
 
 
 ## Dataset exploration
-Three datasets are provided: `quality_dataset.h5`, `record1.h5` and `record2.h5`.
 
-`quality_dataset.h5` is the train dataset with 137,030 samples. Each sample represents 2 's' of a single EEG channel recording sampled at 250 'Hz' (yielding 500 data points per sample), and is labelled 0 for 'bad quality' or 1 for 'good quality'.
+Three datasets are provided in [HDF5](https://en.wikipedia.org/wiki/Hierarchical_Data_Format) format: 
+* `quality_dataset.h5` is the train dataset with 137,030 samples. Each sample represents 2 `s` of a single EEG channel recording sampled at 250 `Hz` (yielding 500 data points per sample), and is labelled 0 for *bad quality* or 1 for *good quality*.
+* `record1.h5` is a test dataset containing a single sample with 4 EEG channels and is partially labelled.
+* `record2.h5` is a test dataset also containing a single sample with 4 EEG channels.
 
-`record1.h5` and `record2.h5` are test datasets, each containing a single sample of 4 EEG channels with much longer duration.
-The dataset `record1.h5` partially labelled.
+All datasets contain both *raw* and *filtered* version of EEG samples.
 
-The structure of the datasets (up to 2nd level) can be analysed with the script `dataset_exploration.py`.
+The structure and properties of the train and test datasets are analysed in greater detail in [Dataset exploration notebook](notebooks/dataset_exploration.ipynb).
+The structure of the datasets (up to 2nd level) can be analysed with the script `python/dataset_exploration.py`.
 
-.Sample output from `dataset_exploration.py`
-```
-Dataset quality_dataset.h5 contains:
-   dataset: (137030, 1001)
-   feature_descriptipn: (1001,)
+**Example of raw and filtered samples from the train dataset**
+![Grid Search](images/samples.png)
 
-Dataset record1.h5 contains:
-   accelerometer/x: (2279140,)
-   accelerometer/y: (2279140,)
-   accelerometer/z: (2279140,)
-   accelerometer_interruption: (57,)
-   alarm_clock: (0,)
-   channel1/filtered: (11395705,)
-   channel1/raw: (11395705,)
-   channel1/visualization: (11395705,)
-   channel2/filtered: (11395705,)
-   channel2/raw: (11395705,)
-   channel2/visualization: (11395705,)
-   channel3/filtered: (11395705,)
-   channel3/raw: (11395705,)
-   channel3/visualization: (11395705,)
-   channel4/filtered: (11395705,)
-   channel4/raw: (11395705,)
-   channel4/visualization: (11395705,)
-   reporting/hypnograms: (1519,)
-   reporting/mother_curve_sham: (1000,)
-   reporting/mother_curve_stim: (1000,)
-   reporting/movements: (50,)
-   reporting/stimulations_reporting: (12,)
-   stimulations/stimulations: (12,)
-   stimulations/stimulations_intensity: (12,)
-   stimulations/stimulations_phase: (12,)
-   switch_to_storing: (0,)
-   switch_to_streaming: (0,)
-
-etc...
-```
-
+**Example of 'bad' and 'good' quality samples from the train dataset**
+![Grid Search](images/samples_label.png)
 
 ## Fitting a Random Forest model
 Fitting a 'Random Forest' model with default parameters yields 94.75 (+/- 3.74) when training with raw signals,
@@ -77,8 +46,8 @@ The performance of the model on the raw signals is further improved by scaling i
 
 Although the filtered versions are visually appealing, the filtering process seems to discard information that is useful for the accuracy of the model.
 
-.Sample output from `random_forest_fit_tune.py` (default model)
---------------------------------------------------------------
+**Sample output from `random_forest_fit_tune.py` (default model)**
+```
 Fit Random forest to quality_dataset.h5
 
 Default model accuracy:
@@ -86,14 +55,14 @@ Accuracy (raw): 94.70 (+/- 3.85)
 Accuracy (filtered): 88.66 (+/- 3.51)
 
 Default model accuracy with normalized data:
-----
+```
 
-== Hyper-parameter tuning
+## Hyper-parameter tuning
 A random forest has several parameters that affect its accuracy. Popular parameters to tune are the number of trees,
 the tree depth and maximum number of features for tree splits.
 The script `random_forest_fit_tune.py` performs a grid search of these parameters on the normalized dataset.
 
-.Sample output from `random_forest_fit_tune.py`
+**Sample output from `random_forest_fit_tune.py`**
 ```
 Grid search for hyper-parameters:
 Accuracy (raw, n_estimators=50, max_depth=25, max_features=5): 86.71 (+/- 2.27)
