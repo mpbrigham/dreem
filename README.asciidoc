@@ -4,6 +4,8 @@
 = Dreem Challenge 21/05/2016
 Marco Brigham <marco@brigham.be>
 v1.0, 21 March 2016:
+:icons:
+:data-uri:
 
 Data-driven EEG signal quality estimation.
 
@@ -117,6 +119,7 @@ Accuracy (raw, n_estimators=50, max_depth=100, max_features=20): 88.15 (+/- 0.45
 etc...
 ----
 
+![Home page](images/grid_search.png.jpg)
 
 == EEG signal quality estimation
 

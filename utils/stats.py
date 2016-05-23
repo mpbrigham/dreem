@@ -4,20 +4,35 @@
 from sklearn import cross_validation
 
 
-def report_cv_stats(n_fold, model, x, y, name):
-    """Report n-fold cross validation accuracy for sklearn model.
+def report_cv_stats(n_fold, model, samples, labels, comment=None):
+    """Compute mean and standard deviation of model accuracy with n-fold cross validation.
 
     Input
     =====
-    n_fold: path to a record
+    n_fold: number of folds (train on (n_fold-1)/n_fold samples)
     model: sklearn model
-    x: train data
-    y: labels
-    name: display text
+    samples: samples in rows
+    labels: labels for each sample row
+    comment: comment to display
 
     Output
     ======
-    prints n-fold cross validation accuracy for model.
+    accuracy_m: (normalized) accuracy mean
+    accuracy_s:  (normalized) accuracy standard deviation
+    Prints accuracy mean and standard deviation of model in percentage.
     """
-    scores = cross_validation.cross_val_score(model, x, y, cv=n_fold)
-    print("Accuracy (" + name + "): %0.2f (+/- %0.2f)" % (scores.mean() * 100, scores.std() * 100 * 2))
+
+    # compute n-fold cross validation accuracy for model
+    accuracy = cross_validation.cross_val_score(model, samples, labels, cv=n_fold)
+
+    # compute mean and standard deviation
+    accuracy_m = accuracy.mean()
+    accuracy_s = accuracy.std()
+
+    text = ""
+    if comment:
+        text = "(" + comment + ")"
+
+    print("Accuracy" + text + ": %0.2f (+/- %0.2f)" % (accuracy_m * 100, accuracy_s * 100 * 2))
+
+    return accuracy_m, accuracy_s
