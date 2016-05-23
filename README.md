@@ -36,6 +36,12 @@ The structure of the datasets (up to 2nd level) can be analysed with the script 
 **Example of 'bad' and 'good' quality samples from the train dataset**
 ![Grid Search](images/samples_label.png)
 
+**Histogram of 'raw' and 'filtered' samples from the train dataset**
+![Grid Search](images/samples_hist.png)
+
+**Histogram of 'raw' and 'filtered' samples from the train dataset with zero-mean normalization per sample**
+![Grid Search](images/samples_hist_norm.png)
+
 ## Fitting a Random Forest model
 Fitting a 'Random Forest' model with default parameters yields 94.75 (+/- 3.74) when training with raw signals,
 and 88.71 (+/- 3.53) with filtered signals. The mean accuracy and 95% confidence interval are estimated with 20-fold cross-validation on the train dataset,
